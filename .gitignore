@@ -20,3 +20,8 @@ jspm_packages/
 
 # Basic text files
 *.txt
+
+# Image files
+*.png
+*.jpg
+*.gif
