@@ -5,6 +5,11 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+// use pug as the view engine
+app.set('view engine', 'pug');
+// not really necessary, shown for completeness in case another directory holds views instead
+app.set('views', 'views'); 
+
 const port = 3000;
 
 // this is now exported as an object since additional properties 
