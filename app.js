@@ -6,8 +6,8 @@ const expressHbs = require('express-handlebars'); // require handlebars
 
 const app = express();
 
-app.engine('handlebars', expressHbs()); // make handlebars available as view engine
-app.set('view engine', 'handlebars'); // set handlebars as view engine
+app.engine('hbs', expressHbs()); // make handlebars available as view engine
+app.set('view engine', 'hbs'); // set handlebars as view engine
 app.set('views', 'views');
 
 const port = 3000;
@@ -24,7 +24,7 @@ app.use('/admin', adminObj.routes);
 app.use(shopRoutes);
 
 app.use((req, res, next) => {
-    res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
+    res.status(404).render('404', {pageTitle: '404 - Page Not Found'});
 });
 
 app.listen(port);
