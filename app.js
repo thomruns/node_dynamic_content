@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+// add view as the view engine and set the views path
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 

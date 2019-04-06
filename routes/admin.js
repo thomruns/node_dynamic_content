@@ -6,7 +6,7 @@ const rootDir = require('../util/path');
 
 const router = express.Router();
 
-// create a new variable to hold data
+// create a new variable to hold form data
 const products = [];
 
 // /admin/add-product => GET
@@ -18,9 +18,7 @@ router.get('/add-product', (req, res, next) => {
 
 // /admin/add-product => POST
 router.post('/add-product', (req, res, next) => {
-  // console.log(products);
-  products.push({ title: req.body.title });
-  // console.log(products);
+  products.push({ title: req.body.title }); // title is the name of the input field
   res.redirect('/');
 });
 
