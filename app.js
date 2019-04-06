@@ -5,6 +5,9 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+app.set('view engine', 'ejs');
+app.set('views', 'views');
+
 const port = 3000;
 
 // this is now exported as an object since additional properties 
@@ -19,7 +22,7 @@ app.use('/admin', adminObj.routes);
 app.use(shopRoutes);
 
 app.use((req, res, next) => {
-    res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
+    res.status(404).render('404', { pageTitle: '404 - Page Not Found' });
 });
 
 app.listen(port);
