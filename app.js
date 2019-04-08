@@ -11,16 +11,16 @@ app.set('views', 'views');
 
 const port = 3000;
 
-// this is now exported as an object since additional properties 
+// this is now imported as an object since multiple properties 
 // are being exported by the admin module
-const adminObj = require('./routes/admin');  //exported object
+const adminRoutes = require('./routes/admin');  //exported object
 const shopRoutes = require('./routes/shop'); // exported function
 // use body parser
 app.use(bodyParser.urlencoded({extended: false}));
 // base directory path for all static files
 app.use(express.static(path.join(__dirname, 'public')));
 // use these routes
-app.use('/admin', adminObj.routes);
+app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
 app.use((req, res, next) => {

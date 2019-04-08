@@ -2,26 +2,16 @@ const path = require('path');
 
 const express = require('express');
 
-const rootDir = require('../util/path');
+const productsController = require('../controllers/products');
 
 const router = express.Router();
 
-// create a new variable to hold form data
-const products = [];
 
-// /admin/add-product => GET
-router.get('/add-product', (req, res, next) => {
-  res.render('add-product', {
-    pageTitle: 'Add Product',
-    path: '/admin/add-product' });
-});
+// /admin/add-product => GET the controller
+router.get('/add-product', productsController.getAddProduct);
 
 // /admin/add-product => POST
-router.post('/add-product', (req, res, next) => {
-  products.push({ title: req.body.title }); // title is the name of the input field
-  res.redirect('/');
-});
+router.post('/add-product', productsController.postAddProduct);
 
-// modify what is exported to include products array
-exports.routes = router;
-exports.products = products;
+// now using controller, only router function is exported
+module.exports = router;
