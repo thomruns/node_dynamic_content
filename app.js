@@ -15,16 +15,15 @@ const port = 3000;
 // are being exported by the admin module
 const adminRoutes = require('./routes/admin');  //exported object
 const shopRoutes = require('./routes/shop'); // exported function
+const errorRoutes = require('./routes/error404'); // exported function
 // use body parser
 app.use(bodyParser.urlencoded({extended: false}));
 // base directory path for all static files
 app.use(express.static(path.join(__dirname, 'public')));
+
 // use these routes
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
-
-app.use((req, res, next) => {
-    res.status(404).render('error404', { pageTitle: '404 - Page Not Found' });
-});
+app.use(errorRoutes);
 
 app.listen(port);
