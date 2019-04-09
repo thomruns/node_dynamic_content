@@ -18,13 +18,15 @@ exports.postAddProduct = (req, res, next) => {
 };
 
 exports.getProducts = (req, res, next) => {
-  const products = Product.fetchAll(); // use class itself as fetchAll is static method
-  res.render('shop', { 
+  Product.fetchAll(products => {
+    res.render('shop', { 
     prods: products,
     pageTitle: 'Shop',
     path: '/',
     hasProducts: products.length > 0,
     activeShop: true,
     productsCSS: true
-  });
-}
+    });
+  }); 
+  
+};
