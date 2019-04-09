@@ -1,5 +1,3 @@
-const path = require('path');
-
 const express = require('express');
 
 const productsController = require('../controllers/products');
@@ -13,5 +11,5 @@ router.get('/add-product', productsController.getAddProduct);
 // /admin/add-product => POST
 router.post('/add-product', productsController.postAddProduct);
 
-// now using controller, only router function is exported
+// now using a controller and model, a single router function is exported
 module.exports = router;
