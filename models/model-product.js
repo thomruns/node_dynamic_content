@@ -3,6 +3,21 @@
 // products are now stored in a file
 const fs = require('fs');
 const path = require('path'); // to create a path to the created file
+const p = path.join(
+    path.dirname(process.mainModule.filename),
+    'data',
+    'products.json'
+  );
+
+const getProductsFromFile = cb => {
+  fs.readFile(p, (err, fileContent) => {
+    if(err) {
+      cb([]);
+    } else {
+      cb(JSON.parse(fileContent));
+    }
+  });
+};
 
 module.exports = class Product {
   constructor(title) {
@@ -10,16 +25,7 @@ module.exports = class Product {
   }
   // store any product created by this class in the products array
   save() {
-    const p = path.join(
-      path.dirname(process.mainModule.filename),
-      'data',
-      'products.json'
-    );
-    fs.readFile(p, (err, fileContent) => {
-      let products = [];
-      if(!err) {
-        products = JSON.parse(fileContent);
-      }
+    getProductsFromFile(products => {
       products.push(this);
       fs.writeFile(p, JSON.stringify(products), (err) => {
         console.log(err);
@@ -30,16 +36,6 @@ module.exports = class Product {
   // this method is not limited to the instance of the class
   // but instead to every instance created by this class
   static fetchAll(cb) {
-    const p = path.join(
-      path.dirname(process.mainModule.filename),
-      'data',
-      'products.json'
-    );
-    fs.readFile(p, (err, fileContent) => {
-      if(err) {
-        cb([]);
-      }
-      cb(JSON.parse(fileContent));
-    });
+    getProductsFromFile(cb);
   }
 }
