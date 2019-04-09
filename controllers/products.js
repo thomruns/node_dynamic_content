@@ -1,5 +1,5 @@
-// hold form data from POST request
-const products = [];
+// require the product model module
+const Product = require('../models/model-product');
 
 exports.getAddProduct = (req, res, next) => {
   res.render('add-product', {
@@ -12,11 +12,13 @@ exports.getAddProduct = (req, res, next) => {
 };
 
 exports.postAddProduct = (req, res, next) => {
-  products.push({ title: req.body.title }); // title is the name of the input field
+  const product = new Product(req.body.title); // title is name of input field
+  product.save(); // method of the Product class
   res.redirect('/');
 };
 
 exports.getProducts = (req, res, next) => {
+  const products = Product.fetchAll(); // use class itself as fetchAll is static method
   res.render('shop', { 
     prods: products,
     pageTitle: 'Shop',
